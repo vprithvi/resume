@@ -1,0 +1,619 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% Simple LaTeX CV Template %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% NOTE: If you find that it says                                     %%
+%%                                                                    %%
+%%                           1 of ??                                  %%
+%%                                                                    %%
+%% at the bottom of your first page, this means that the AUX file     %%
+%% was not available when you ran LaTeX on this source. Simply RERUN  %%
+%% LaTeX to get the ``??'' replaced with the number of the last page  %%
+%% of the document. The AUX file will be generated on the first run   %%
+%% of LaTeX and used on the second run to fill in all of the          %%
+%% references.                                                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't like 10pt? Try 11pt or 12pt
+\documentclass[10pt]{article}
+
+% The automated optical recognition software used to digitize resume
+% information works best with fonts that do not have serifs. This
+% command uses a sans serif font throughout. Uncomment both lines (or at
+% least the second) to restore a Roman font (i.e., a font with serifs).
+%\usepackage{lmodern}
+%\renewcommand{\familydefault}{\sfdefault}
+\usepackage{tgschola}
+\usepackage[T1]{fontenc}
+% The OCR software also has a hard time with italics. These commands get
+% rid of the two common ways to italicize text in LaTeX. Get rid of them
+% to turn italics back on.
+\renewcommand\emph[1]{#1}
+\renewcommand\textit[1]{#1}
+
+% This is a helpful package that puts math inside length specifications
+\usepackage{calc}
+
+% Simpler bibsection for CV sections
+% (thanks to natbib for inspiration)
+\makeatletter
+\newlength{\bibhang}
+\setlength{\bibhang}{1em}
+\newlength{\bibsep}
+ {\@listi \global\bibsep\itemsep \global\advance\bibsep by\parsep}
+\newenvironment{bibsection}%
+        {\vspace{-\baselineskip}\begin{list}{}{%
+       \setlength{\leftmargin}{\bibhang}%
+       \setlength{\itemindent}{-\leftmargin}%
+       \setlength{\itemsep}{\bibsep}%
+       \setlength{\parsep}{\z@}%
+        \setlength{\partopsep}{0pt}%
+        \setlength{\topsep}{0pt}}}
+        {\end{list}\vspace{-.6\baselineskip}}
+\makeatother
+
+% Layout: Puts the section titles on left side of page
+\reversemarginpar
+
+%
+%         PAPER SIZE, PAGE NUMBER, AND DOCUMENT LAYOUT NOTES:
+%
+% The next \usepackage line changes the layout for CV style section
+% headings as marginal notes. It also sets up the paper size as either
+% letter or A4. By default, letter was used. If A4 paper is desired,
+% comment out the letterpaper lines and uncomment the a4paper lines.
+%
+% As you can see, the margin widths and section title widths can be
+% easily adjusted.
+%
+% ALSO: Notice that the includefoot option can be commented OUT in order
+% to put the PAGE NUMBER *IN* the bottom margin. This will make the
+% effective text area larger.
+%
+% IF YOU WISH TO REMOVE THE ``of LASTPAGE'' next to each page number,
+% see the note about the +LP and -LP lines below. Comment out the +LP
+% and uncomment the -LP.
+%
+% IF YOU WISH TO REMOVE PAGE NUMBERS, be sure that the includefoot line
+% is uncommented and ALSO uncomment the \pagestyle{empty} a few lines
+% below.
+%
+
+%% Use these lines for letter-sized paper
+\usepackage[paper=letterpaper,
+            %includefoot, % Uncomment to put page number above margin
+            marginparwidth=1.2in,     % Length of section titles
+            marginparsep=.05in,       % Space between titles and text
+            margin=1in,               % 1 inch margins
+            includemp]{geometry}
+
+%% Use these lines for A4-sized paper
+%\usepackage[paper=a4paper,
+%            %includefoot, % Uncomment to put page number above margin
+%            marginparwidth=30.5mm,    % Length of section titles
+%            marginparsep=1.5mm,       % Space between titles and text
+%            margin=25mm,              % 25mm margins
+%            includemp]{geometry}
+
+%% More layout: Get rid of indenting throughout entire document
+\setlength{\parindent}{0in}
+
+%% This gives us fun enumeration environments. compactitem will be nice.
+\usepackage{paralist}
+
+%%% Setup header and footer (with page number and possible last page)
+%
+% The first block sets up pages 2--end
+% The second block sets up page 1 formatting
+%
+%%%
+%
+% NOTE: comment the +LP lines and uncomment the -LP lines to have page
+%       numbers without the ``of ##'' last page reference)
+%
+% NOTE: uncomment the \pagestyle{empty} line to get rid of all page
+%       numbers on pages 2--end. To get rid of page numbers on page 1,
+%       comment out the \thispagestyle{plain} line on the first page
+%       below.
+%       (also make sure includefoot is commented out above)
+%
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+%\pagestyle{empty}      % Uncomment this to get rid of page numbers
+\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+\fancyfootoffset{\marginparsep+\marginparwidth}
+\newlength{\footpageshift}
+\setlength{\footpageshift}
+          {0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
+
+%%%% PAGES 2--9 NUMBERING:
+%% These two lines put page number in upper-right corner of pages 2--end
+\rhead{Venkat Raj, p.~\arabic{page} of \protect\pageref*{LastPage}}   % +LP
+%\rhead{Pavlic, p.~\arabic{page}}                                 % -LP
+
+%% These lines put page number in bottom (center) of pages 2--end
+%\lfoot{\hspace{\footpageshift}%
+%       \parbox{4in}{\, \hfill %
+%                    \arabic{page} of \protect\pageref*{LastPage} % +LP
+%%                    \arabic{page}                               % -LP
+%                    \hfill \,}}
+%%%% END PAGE 2--9 NUMBERING
+
+%%%% PAGE 1 NUMBERING:
+\makeatletter
+\let\oldps@plain\ps@plain
+\renewcommand{\ps@plain}{\oldps@plain%
+\renewcommand{\@evenfoot}{\hfil %
+    p.~\arabic{page} of \protect\pageref*{LastPage} % +LP
+%    p.~\arabic{page}                               % -LP
+    \hfil}%
+\renewcommand{\@oddfoot}{\@evenfoot}}
+\makeatother
+%%%% END PAGE 1 NUMBERING
+
+% Finally, give us PDF bookmarks and colored links
+%
+% NOTE: Some OCR software might be negatively affected by hyperlinks. So
+%       most employers recommend the draft option here.
+%
+% (to enable hyperlinks and bookmarks, comment out ``draft'' line;
+%  to disable hyperlinks and bookmarks, uncomment ``draft'' line)
+\usepackage{color,hyperref}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=darkblue,urlcolor=darkblue,
+            anchorcolor=darkblue,citecolor=darkblue,
+            draft
+            }
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% The title (name) with a horizontal rule under it
+% (optional argument typesets an object right-justified across from name
+%  as well)
+%
+% Usage: \makeheading{name}
+%        OR
+%        \makeheading[right_object]{name}
+%
+% Place at top of document. It should be the first thing.
+% If ``right_object'' is provided in the square-braced optional
+% argument, it will be right justified on the same line as ``name'' at
+% the top of the CV. For example:
+%
+%       \makeheading[\emph{Curriculum vitae}]{Your Name}
+%
+% will put an emphasized ``Curriculum vitae'' at the top of the document
+% as a title. Likewise, a picture could be included:
+%
+%   \makeheading[\includegraphics[height=1.5in]{my_picutre}]{Your Name}
+%
+% the picture will be flush right across from the name.
+\newcommand{\makeheading}[2][]%
+        {\hspace*{-\marginparsep minus \marginparwidth}%
+         \begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+             {\large \bfseries #2 \hfill #1}\\[-0.15\baselineskip]%
+                 \rule{\columnwidth}{1pt}%
+         \end{minipage}}
+
+% The section headings
+%
+% Usage: \section{section name}
+%
+% Follow this section IMMEDIATELY with the first line of the section
+% text. Do not put whitespace in between. That is, do this:
+%
+%       \section{My Information}
+%       Here is my information.
+%
+% and NOT this:
+%
+%       \section{My Information}
+%
+%       Here is my information.
+%
+% Otherwise the top of the section header will not line up with the top
+% of the section. Of course, using a single comment character (%) on
+% empty lines allows for the function of the first example with the
+% readability of the second example.
+\renewcommand{\section}[2]%
+        {\pagebreak[3]\vspace{1.3\baselineskip}%
+         \phantomsection\addcontentsline{toc}{section}{#1}%
+         \hspace{0in}%
+         \marginpar{
+         \raggedright \scshape #1}#2}
+
+% An itemize-style list with lots of space between items
+\newenvironment{outerlist}[1][\enskip\textbullet]%
+        {\begin{itemize}[#1]}{\end{itemize}%
+         \vspace{-.6\baselineskip}}
+
+% An environment IDENTICAL to outerlist that has better pre-list spacing
+% when used as the first thing in a \section
+\newenvironment{lonelist}[1][\enskip\textbullet]%
+        {\vspace{-\baselineskip}\begin{list}{#1}{%
+        \setlength{\partopsep}{0pt}%
+        \setlength{\topsep}{0pt}}}
+        {\end{list}\vspace{-.6\baselineskip}}
+
+% An itemize-style list with little space between items
+\newenvironment{innerlist}[1][\enskip\textbullet]%
+        {\begin{compactitem}[#1]}{\end{compactitem}}
+
+% An environment IDENTICAL to innerlist that has better pre-list spacing
+% when used as the first thing in a \section
+\newenvironment{loneinnerlist}[1][\enskip\textbullet]%
+        {\vspace{-\baselineskip}\begin{compactitem}[#1]}
+        {\end{compactitem}\vspace{-.6\baselineskip}}
+
+% To add some paragraph space between lines.
+% This also tells LaTeX to preferably break a page on one of these gaps
+% if there is a needed pagebreak nearby.
+\newcommand{\blankline}{\quad\pagebreak[3]}
+\newcommand{\halfblankline}{\quad\vspace{-0.5\baselineskip}\pagebreak[3]}
+
+% Uses hyperref to link DOI
+\newcommand\doilink[1]{\href{http://dx.doi.org/#1}{#1}}
+\newcommand\doi[1]{doi:\doilink{#1}}
+
+% For \url{SOME_URL}, links SOME_URL to the url SOME_URL
+\providecommand*\url[1]{\href{#1}{#1}}
+% Same as above, but pretty-prints SOME_URL in teletype fixed-width font
+\renewcommand*\url[1]{\href{#1}{\texttt{#1}}}
+
+% For \email{ADDRESS}, links ADDRESS to the url mailto:ADDRESS
+\providecommand*\email[1]{\href{mailto:#1}{#1}}
+% Same as above, but pretty-prints ADDRESS in teletype fixed-width font
+%\renewcommand*\email[1]{\href{mailto:#1}{\texttt{#1}}}
+
+%\providecommand\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+%    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+%\providecommand\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+%    \TeX}}
+\providecommand\BibTeX{{B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    \TeX}}
+\providecommand\Matlab{\textsc{Matlab}}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Begin CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\thispagestyle{plain}
+\makeheading[\emph{Curriculum vitae}]{Prithvi Raj Venkat Raj}
+
+\section{Contact Information}
+%
+% NOTE: Mind where the & separators and \\ breaks are in the following
+%       table.
+%
+% ALSO: \rcollength is the width of the right column of the table
+%       (adjust it to your liking; default is 1.85in).
+%
+\newlength{\rcollength}\setlength{\rcollength}{1.85in}%
+%
+\begin{tabular}[t]{@{}p{\textwidth-\rcollength}p{\rcollength}}
+\href{http://www.cise.ufl.edu/}%
+     {Department of Computer Science and Engineering} & \\
+\href{http://www.ufl.edu/}{University of Florida}
+                           & \textit{Mobile:} +1-352-575-0144 \\
+451 Harris Lab     & \textit{E-mail:} \email{prv@cise.ufl.edu}\\
+Gainesville, FL  32611 USA    %& \textit{WWW:}
+%\href{http://www.cise.ufl.edu/~prv}{cise.ufl.edu/{\tt \~{}}prv}\\
+\end{tabular}
+
+%\section{Objective}
+%
+%Full-time position that allows for  research in the computer engineering with a focus on mobile computing and big data
+
+%
+%\section{Availability}%
+%\begin{loneinnerlist}
+%    \item Start time is negotiable, but preferably July--August 2011
+%    \item Geographic location is flexible, but preferably near one of:
+%        Austin, TX; Boston, MA; Los Angeles, CA; Salt Lake City, UT;
+%        Tempe, AZ
+%\end{loneinnerlist}
+
+
+% \section{Citizenship}
+% %
+% USA
+
+%\section{Research Interests}
+%%
+%Agent-based modeling, complex systems, hybrid systems, distributed
+%algorithms, amorphous computing, autonomous systems and vehicles,
+%networks, control theory, communication theory, behavioral ecology,
+%cooperation theory, optimization, parallel computation, robotics,
+%bio-mimicry and bio-inspiration
+
+\section{Education}
+%
+\href{http://www.ufl.edu/}{\textbf{University of Florida}},
+Gainesville, FL USA
+\hfill \textbf{May 2012}
+\begin{outerlist}
+
+\item[] M.S.,
+        \href{http://www.cise.ufl.edu/}
+             {Computer Engineering}
+             \hfill GPA: 3.62 (4.0 scale)
+        \begin{innerlist}
+        \item Thesis Topic: \emph{News Gathering and Reporting using mobile devices}
+        \item Adviser:
+              \href{http://www.cise.ufl.edu/~helal/}
+                   {Professor Abdelsalam Helal}
+        \item Area of Study: Mobile computing and Social Networking
+        \end{innerlist}
+
+\end{outerlist}
+
+\halfblankline
+
+\href{http://www.ufl.edu/}{\textbf{Crescent Engineering College}},
+Vandaloor, Chennai, India
+\hfill \textbf{December 2010}
+\begin{outerlist}
+
+\item[] B.Engg.,
+        \href{http://www.cise.ufl.edu/}
+             {Computer Science and Engineering}
+             \hfill First Class
+        \begin{innerlist}
+        \item Project Topic: \emph{Reverse Image Search on iPhone}
+        \item Adviser:
+              \href{http://www.cise.ufl.edu/~helal/}
+                   {Professor Angelina Gita}
+        \end{innerlist}
+
+\end{outerlist}
+
+
+
+\section{Professional Experience}
+%
+\textbf{\href{http://www.ufl.edu/}Department of Education},
+University of Florida, Gainesville, FL USA
+\begin{outerlist}
+
+\item[] \textit{iPad Software Developer for K-CRATI}%
+        \hfill \textbf{May 2011 ~-- Present}
+\begin{innerlist}
+\item Adapting experiments designed to measure cognitive skills of kindergarten students
+\end{innerlist}
+
+\end{outerlist}
+
+\halfblankline
+
+\href{http://www.grooveshark.com/}{\textbf{Grooveshark}},
+Gainesville, FL USA
+\begin{outerlist}
+
+\item[] \textit{ Software Development Intern - Data}%
+        \hfill \textbf{May 2011 ~-- August 2011}
+\begin{innerlist}
+\item Analysed metrics to characterize Apache Hadoop jobs
+\item Extended Sqoop mySql export functionality to include Apache Hive partitions
+\end{innerlist}
+
+\end{outerlist}
+
+\halfblankline
+
+
+\href{http://www.microsoft.com/}{\textbf{Microsoft}},
+Chennai, India
+\begin{outerlist}
+
+\item[] \textit{Microsoft Student Partner}%
+        \hfill \textbf{June 2008 ~-- May 2010}
+\begin{innerlist}
+\item Primary liaison between Microsoft and Crescent Engineering College, Chennai
+\item Administered MSDNAA and Live@Edu
+\end{innerlist}
+
+\end{outerlist}
+
+\halfblankline
+
+
+\section{Project Work}
+\href{http://www.ufl.edu}{\textbf{University of Florida}},
+Gainesville, FL USA
+%\hfill \textbf{September 2007~-- August 2009}
+\begin{outerlist}
+
+\item[] \textit{}%
+%    \hfill \textbf{September 2007~-- August 2009}
+
+    \begin{innerlist}
+
+        \item[] \textit{Large Scale Data Analysis}%
+        \begin{innerlist}
+        \item SAMwise: Providing City Trotting Recommendations
+        \begin{innerlist}
+            \item Compared different topic modeling toolkits, and feedback mechanisms. Implemented a web UI
+        \end{innerlist}
+	\end{innerlist}
+        \halfblankline
+
+        \item[] \textit{Mobile Networking}%
+        \begin{innerlist}
+        \item PRIDE: PRivacy preserving Intelligent riDEsharing
+        \begin{innerlist}
+            \item Analyzed wifi traces, and computed route similarity to find significant fuel savings while providing k-Anonymity for users
+        \end{innerlist}
+	\end{innerlist}
+        \halfblankline
+
+        \item[] \textit{Mobile Computing and Pervasive computing}%
+        \begin{innerlist}
+        \item DroiDrive: Saving fuel with Android and Facebook
+        \begin{innerlist}
+            \item Characterized driving style by evaluating sensor output, designed metrics and incorporated game mechanics for motivation
+
+        \end{innerlist}
+        \halfblankline
+              \item Optimization of Atlas Sensor Platform
+        \begin{innerlist}
+            \item Reduced Energy consumption by {\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}20 percent
+            \item Implemented sensor reading caching, dynamic push-pull conversion, lazy sensor initialization
+            \item Used ontology to eliminate certain actuator movement requests
+        \end{innerlist}
+      \end{innerlist}
+        \halfblankline
+
+                \item[] Computer Networks
+        \begin{innerlist}
+            \item Implemented a command line peer to peer file transfer program based on the bit torrent protocol
+        \end{innerlist}
+
+        \halfblankline
+
+        \item[] Distributed Operating systems
+        \begin{innerlist}
+            \item Implemented applications that distribute computation to clients, CREW problem, Suzuki- Kasami broadcast algorithm using sockets and multi-threading
+        \end{innerlist}
+
+        \halfblankline
+
+%        \item[] Advanced Data Structures
+%        \begin{innerlist}
+%            \item Evaluated performance of Leftist Tree, Fibonacci heap structures under insertions and deletions wrt input size
+%        \end{innerlist}
+%
+%        \halfblankline
+
+       \end{innerlist}
+
+\end{outerlist}
+
+
+
+\href{http://www.ufl.edu}{\textbf{Crescent College}},
+Vandaloor, Chennai India
+%\hfill \textbf{November 2009~-- March 2010}
+\begin{outerlist}
+
+\item[] \textit{}%
+%    \hfill \textbf{September 2007~-- August 2009}
+
+    \begin{innerlist}
+
+        \item[] \textit{Senior Project}%
+        \begin{innerlist}
+        \item Reverse Image Search on iPhone
+        \begin{innerlist}
+            \item Developed a geolocation aware image crawler and search engine
+            \item Collaboratively used users' skill to recommend similar results
+        \end{innerlist}
+	\end{innerlist}
+        \halfblankline
+
+       \end{innerlist}
+
+\end{outerlist}
+
+
+\section{Hardware and Software Skills}
+%
+Embedded and Real-time Systems:
+%
+\begin{innerlist}
+    \item Software and hardware development with Atmel MCUs and
+    Arduino
+\end{innerlist}
+
+\halfblankline
+
+Computer Programming:
+%
+\begin{innerlist}
+    \item C, C$+$$+$, Objective C, UNIX
+        shell scripting,
+        MySQL,  and others
+\end{innerlist}
+
+\halfblankline
+
+Version Control and Software Configuration Management:
+%
+\begin{innerlist}
+    \item DVCS (Git), and
+        others
+\end{innerlist}
+
+\halfblankline
+
+Information/Internet Technology:
+%
+\begin{innerlist}
+    \item Networking, Services (Apache, SQL, MediaWiki, POP, IMAP, SMTP)
+\end{innerlist}
+\halfblankline
+
+Mobile and Social Platforms:
+%
+\begin{innerlist}
+    \item iPhone, Android, Facebook API, Twitter API, Neo4j
+\end{innerlist}
+
+\halfblankline
+
+Data Platforms:
+%
+\begin{innerlist}
+    \item Apache Hadoop, hive
+\end{innerlist}
+
+\halfblankline
+
+Productivity Applications:
+%
+\begin{innerlist}
+    \item \TeX{} (\LaTeX{}, \BibTeX{}, PSTricks), Vim,
+        most common productivity packages (for Windows, OS X, and Linux
+        platforms)
+\end{innerlist}
+
+\halfblankline
+
+Operating Systems:
+%
+\begin{innerlist}
+    \item Microsoft Windows family, Apple OS X, Linux and other UNIX variants
+\end{innerlist}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% End CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------%
+% The following is copyright and licensing information for
+% redistribution of this LaTeX source code; it also includes a liability
+% statement. If this source code is not being redistributed to others,
+% it may be omitted. It has no effect on the function of the above code.
+%----------------------------------------------------------------------%
+% Copyright (c) 2007, 2008, 2009, 2010, 2011 by Theodore P. Pavlic
+%
+% Unless otherwise expressly stated, this work is licensed under the
+% Creative Commons Attribution-Noncommercial 3.0 United States License. To
+% view a copy of this license, visit
+% http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to
+% Creative Commons, 171 Second Street, Suite 300, San Francisco,
+% California, 94105, USA.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+% OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+% MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+% IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+% CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+% TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+% SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+%----------------------------------------------------------------------%

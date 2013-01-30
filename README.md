@@ -6,5 +6,3 @@ The tex file can be compiled to pdf thusly
 ```bash
 $pdflatex resumeName.tex
 ```
-
-PS: As of Jan2012, I'm still looking for an internship.
